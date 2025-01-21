@@ -410,3 +410,26 @@ td video {
 	padding-left: 8px !important;
 	list-style: none;	
 	}
+
+
+
+    #download {
+        position: fixed;
+        top: 100px;
+        left: 0;
+        opacity: 0.7;
+        cursor: pointer;
+        margin: 10px;
+        z-index: 2000;
+    }
+
+    #download i {
+        font-size: 32px;
+        color: rgba(255, 0, 0, 0.699);
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    #download:hover i {
+        color: rgba(0, 154, 0, 0.796);
+        transform: scale(1.2);
+    }

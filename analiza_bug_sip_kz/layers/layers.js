@@ -5,8 +5,7 @@ var wms_layers = [];
             'title': 'OSM white',
             'type':'base',
             'opacity': 1.000000,
-            
-            
+
             source: new ol.source.XYZ({
             attributions: ' &middot; <a href="https://cartodb.com/basemaps/">Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</a>',
                 url: 'https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
@@ -17,13 +16,35 @@ var wms_layers = [];
             'title': 'Google Satellite',
             'type':'base',
             'opacity': 1.000000,
-            
-            
+
+
             source: new ol.source.XYZ({
             attributions: ' &middot; <a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
                 url: 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
             })
         });
+
+
+
+        var wody_polskie = new ol.layer.Tile({
+            source: new ol.source.TileWMS(({
+                url: "https://wody.isok.gov.pl/gpservices/KZGW/MZP20_Glebokosc_WysokiePrawdopodPowodzi/MapServer/WMSServer",
+                attributions: ' ',
+                params: {
+                    "LAYERS": "4",
+                    "TILED": "true",
+                    "VERSION": "1.3.0"},
+                })),
+            title: 'Wody Polski',
+            opacity: 1.000000,
+
+          });
+        wms_layers.push([wody_polskie, 0]);
+
+
+
+
+
 var format_VMAPL22002_2 = new ol.format.GeoJSON();
 var features_VMAPL22002_2 = format_VMAPL22002_2.readFeatures(json_VMAPL22002_2, 
             {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'});
@@ -91,8 +112,25 @@ var lyr_AnalizaHistzSantinel_5 = new ol.layer.Vector({
     <img src="styles/legend/AnalizaHistzSantinel_5_5.png" /> 63 - 100<br />'
         });
 
-lyr_OSMwhite_0.setVisible(false);lyr_GoogleSatellite_1.setVisible(true);lyr_VMAPL22002_2.setVisible(true);lyr_Santinel2024_3.setVisible(true);lyr_Historycznatopo1940_4.setVisible(true);lyr_AnalizaHistzSantinel_5.setVisible(false);
-var layersList = [lyr_OSMwhite_0,lyr_GoogleSatellite_1,lyr_VMAPL22002_2,lyr_Santinel2024_3,lyr_Historycznatopo1940_4,lyr_AnalizaHistzSantinel_5];
+lyr_OSMwhite_0.setVisible(false);
+
+lyr_GoogleSatellite_1.setVisible(true);
+wody_polskie.setVisible(true); // dodanie warstwy WMS Wody Polski
+
+lyr_VMAPL22002_2.setVisible(true);
+lyr_Santinel2024_3.setVisible(true);
+lyr_Historycznatopo1940_4.setVisible(true);
+lyr_AnalizaHistzSantinel_5.setVisible(false);
+var layersList = [
+        lyr_OSMwhite_0,
+        lyr_GoogleSatellite_1,
+        wody_polskie, // dodanie warstwy WMS Wody Polski !Kolejnosc renderowania warstw
+        lyr_VMAPL22002_2,
+        lyr_Santinel2024_3,
+        lyr_Historycznatopo1940_4,
+        lyr_AnalizaHistzSantinel_5];
+
+
 lyr_VMAPL22002_2.set('fieldAliases', {'POWIERZCHN': 'POWIERZCHN', 'ID': 'ID', 'Field': 'Field', 'pow': 'pow', 'obwod': 'obwod', 'wsp_zw': 'wsp_zw', });
 lyr_Santinel2024_3.set('fieldAliases', {'Id': 'Id', 'gridcode': 'gridcode', 'Shape_Leng': 'Shape_Leng', 'Shape_Area': 'Shape_Area', });
 lyr_Historycznatopo1940_4.set('fieldAliases', {'Id': 'Id', 'Shape_Leng': 'Shape_Leng', 'Shape_Area': 'Shape_Area', 'Field': 'Field', 'pow': 'pow', 'obw': 'obw', 'wsp_zw': 'wsp_zw', 'Field1': 'Field1', });
