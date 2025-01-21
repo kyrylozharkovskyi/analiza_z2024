@@ -9,7 +9,7 @@ var map = new ol.Map({
 });
 
 //initial view - epsg:3857 coordinates if not "Match project CRS"
-map.getView().fit([2346590.896554, 6890142.290346, 2363454.233522, 6898515.148532], map.getSize());
+map.getView().fit([2347077.753522, 6890549.542973, 2356871.468479, 6895409.416411], map.getSize());
 
 ////small screen definition
     var hasTouchScreen = map.getViewport().classList.contains('ol-touch');
@@ -470,8 +470,16 @@ var Abstract = new ol.control.Control({
 
             hideAbstract();
         } else {
+
+            // Tworzymy element linku
+            const link = document.createElement("a");
+            link.href = "https://github.com/kyrylozharkovskyi/aniza_2024_sip"; // Podaj adres URL
+            link.target = "_blank"; // Otwórz w nowej karcie
+            link.textContent = "SIP autor KZ";
+
             linkElement.classList.add("project-abstract-uncollapsed");
-            linkElement.innerHTML = 'SIP KZ';
+            // linkElement.innerHTML = 'SIP autor KZ';
+            linkElement.appendChild(link); // Dodajemy link jako dziecko
         }
 
         titleElement.appendChild(linkElement);
